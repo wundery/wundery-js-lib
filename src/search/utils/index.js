@@ -1,12 +1,8 @@
-export const searchResultsMock = [
-  {
+export const searchResultsMock = [...Array(100)].map((_, index) => {
+  return {
     title: 'Test',
-    description: 'Lorem Ipsum',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     url: 'abc',
-  },
-  {
-    title: 'Test 2',
-    description: 'Lorem Ipsum 2',
-    url: 'cde'
-  },
-]
+    image: index % 4 === 0 ? null : 'https://fakeimg.pl/100/',
+  };
+});
