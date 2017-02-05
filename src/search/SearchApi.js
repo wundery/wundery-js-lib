@@ -40,7 +40,7 @@ class SearchApi {
 
     return new Promise((resolve, reject) => {
       if (this.mock) {
-        setTimeout(() => resolve(searchResultsMock), 300);
+        resolve(searchResultsMock);
         return;
       }
 
