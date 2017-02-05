@@ -5,7 +5,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "rm -rf dist && babel src --out-dir dist --ignore '**/__tests__/**'",
-    "prepublish": "rm -rf dist && babel src --out-dir dist --ignore '**/__tests__/**'"
+    "prepublish": "rm -rf dist && babel src --out-dir dist --ignore '**/__tests__/**'",
+    "lint": "eslint src",
+    "fix": "eslint src --fix"
   },
   "author": "",
   "license": "MIT",
