@@ -1,6 +1,6 @@
 {
   "name": "wundery-js-lib",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Collection of wundery tools",
   "main": "./dist/index.js",
   "scripts": {
