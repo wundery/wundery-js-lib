@@ -21,7 +21,8 @@ class SearchApi {
     this.algoliaClient = algoliasearch(algoliaAppId, algoliaSearchApiKey);
   }
 
-  search(indexName, term, tags) {
+  search(indexName, term, tags, returnTotal=false) {
+
     if (!indexName) {
       throw new Error('You must provide a search index name');
     }
@@ -38,24 +39,48 @@ class SearchApi {
       searchOptions.filters = tags.join(' AND ');
     }
 
-    return new Promise((resolve, reject) => {
-      if (this.mock) {
-        resolve(searchResultsMock);
-        return;
-      }
+    if (returnTotal) {
+      return new Promise((resolve, reject) => {
+        if (this.mock) {
+          resolve(searchResultsMock);
+          return;
+        }
 
-      index
-        .search(term, searchOptions, (err, results) => {
-          if (err) {
-            reject(get(err, 'message', 'Unknown error'));
-          } else {
-            resolve(get(results, 'hits', []));
-          }
-        });
-    }).catch(error => {
-      console.warn(error);
-      reject(String(error));
-    });
+        index
+          .search(term, searchOptions, (err, results) => {
+            if (err) {
+              reject(get(err, 'message', 'Unknown error'));
+            } else {
+              resolve({
+                products: get(results, 'hits', []),
+                total: get(results, 'nbHits', 0)
+              });
+            }
+          });
+      }).catch(error => {
+        console.warn(error);
+        reject(String(error));
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        if (this.mock) {
+          resolve(searchResultsMock);
+          return;
+        }
+
+        index
+          .search(term, searchOptions, (err, results) => {
+            if (err) {
+              reject(get(err, 'message', 'Unknown error'));
+            } else {
+              resolve(get(results, 'hits', []));
+            }
+          });
+      }).catch(error => {
+        console.warn(error);
+        reject(String(error));
+      });
+    }
   }
 }
 
