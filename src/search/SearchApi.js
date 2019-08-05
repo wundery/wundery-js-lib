@@ -29,6 +29,9 @@ class SearchApi {
     }
 
     if (isEmpty(trim(term))) {
+      if (returnTotal) {
+        return Promise.resolve({products: [], total: 0});
+      }
       return Promise.resolve([]);
     }
 
