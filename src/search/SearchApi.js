@@ -2,6 +2,7 @@ import algoliasearch from 'algoliasearch';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import trim from 'lodash/trim';
+import merge from 'lodash/merge';
 import { searchResultsMock } from './utils';
 
 class SearchApi {
@@ -47,7 +48,7 @@ class SearchApi {
         }
 
         index
-          .search(term, searchOptions, (err, results) => {
+          .search(term, merge( searchOptions, {'hitsPerPage': 5} ), (err, results) => {
             if (err) {
               reject(get(err, 'message', 'Unknown error'));
             } else {
